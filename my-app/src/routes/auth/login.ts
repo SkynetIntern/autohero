@@ -1,7 +1,9 @@
 import stringHash from 'string-hash'
 import * as cookie from 'cookie'
+import { serialize } from 'cookie';
 import { v4 as uuidv4 } from 'uuid'
-import { Authorization, ApiRoot } from '/src/auth'
+import { Authorization, ApiRoot, CreateSession } from '/src/auth'
+
 
 export async function post({ request }) {
     const body = await request.json()
@@ -30,12 +32,21 @@ export async function post({ request }) {
         })
     })
     const apiResponseBody = await apiResponse.json()
-    console.log(apiResponseBody);
     
-    if (apiResponseBody.status === 200) {
-
+    if (apiResponseBody?.status === 200) {
+        const { id } = await CreateSession(email);
+        
+        const headers = {
+            'Set-Cookie': serialize('session_id', id, {
+                path: '/',
+                httpOnly: true,
+                sameSite: 'lax',
+                maxAge: 60 * 60 * 24 * 7, // one week
+            }),
+        }
         return {
             status: 200,
+            headers,
             body: {
                 message: 'Login successful'
             }
