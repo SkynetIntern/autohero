@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_edit_base_edit_base_components",
+  "info": {
+    "displayName": "Edit Base Component",
+    "icon": "list",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Component_name": {
+      "type": "string"
+    },
+    "css_classes": {
+      "type": "string"
+    }
+  }
+}
