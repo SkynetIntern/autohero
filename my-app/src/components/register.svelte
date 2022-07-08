@@ -6,18 +6,20 @@
 
 	let email = '';
 	let password = '';
+    let username = '';
 	let error = undefined;
 
 	async function login() {
 		try {
-			const res = await fetch('/auth/login', {
+			const res = await fetch('/auth/register', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify({
 					email,
-					password
+					password,
+                    username
 				})
 			});
 
@@ -39,9 +41,9 @@
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Login</h3>
+						<h3 class="panel-title">Registration</h3>
 					</div>
-					{#if error}
+                    {#if error}
                     <div class="alert alert-danger">
                      
                             {error}
@@ -53,6 +55,10 @@
 							<label for="email">Email</label>
 							<input type="email" class="form-control" bind:value={email} placeholder="Email" />
 						</div>
+                        <div class="form-group">
+							<label for="username">Username</label>
+							<input type="text" class="form-control" bind:value={username} placeholder="Username" />
+						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
 							<input
@@ -62,7 +68,7 @@
 								placeholder="Password"
 							/>
 						</div>
-						<button type="submit" on:click={login} class="btn btn-info">Login</button>
+						<button type="submit" on:click={login} class="btn btn-info">Register</button>
 					</div>
 				</div>
 			</div>

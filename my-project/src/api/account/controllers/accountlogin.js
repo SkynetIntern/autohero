@@ -12,7 +12,6 @@ module.exports = {
             });
         });
 
-
         const user = await strapi.db.query('api::account.account', 'users-permissions').findOne({
             where: {
                 email,

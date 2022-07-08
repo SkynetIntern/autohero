@@ -1,24 +1,22 @@
-import stringHash from 'string-hash'
-import * as cookie from 'cookie'
-import { v4 as uuidv4 } from 'uuid'
 import { Authorization, ApiRoot } from '/src/auth'
 
 export async function post({ request }) {
     const body = await request.json()
 
     const email = body.email;
+    const username = body.username;
     const password = body.password;
 
-    if (!email || !password || email.length < 3 || password.length < 3) {
+    if (!email || !password || email.length < 3 || password.length < 3 || !username || username.length < 3) {
         return {
             status: 400,
             body: {
-                message: 'Missing email or password'
+                message: 'Missing email, password or username'
             }
         }
     }
 
-    const apiResponse = await fetch(`${ApiRoot}/api/account/login`, {
+    const apiResponse = await fetch(`${ApiRoot}/api/account/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -26,18 +24,18 @@ export async function post({ request }) {
         },
         body: JSON.stringify({
             email,
-            password
+            password,
+            username
         })
     })
     const apiResponseBody = await apiResponse.json()
     console.log(apiResponseBody);
     
     if (apiResponseBody.status === 200) {
-
         return {
             status: 200,
             body: {
-                message: 'Login successful'
+                message: 'Registration successful'
             }
         }
     }
@@ -45,7 +43,7 @@ export async function post({ request }) {
     return {
         status: 401,
         body: {
-            message: 'bad login'
+            message: apiResponseBody.message
         }
     }
 }
