@@ -7,7 +7,7 @@ import { Authorization, ApiRoot, CreateSession } from '/src/auth'
 
 export async function post({ request }) {
     const body = await request.json()
-
+    
     const email = body.email;
     const password = body.password;
 
@@ -19,7 +19,7 @@ export async function post({ request }) {
             }
         }
     }
-
+    const { id } = await CreateSession(email);
     const apiResponse = await fetch(`${ApiRoot}/api/account/login`, {
         method: 'POST',
         headers: {
@@ -28,13 +28,13 @@ export async function post({ request }) {
         },
         body: JSON.stringify({
             email,
-            password
+            password,
+            sessionid: id
         })
     })
     const apiResponseBody = await apiResponse.json()
     
     if (apiResponseBody?.status === 200) {
-        const { id } = await CreateSession(email);
         
         const headers = {
             'Set-Cookie': serialize('session_id', id, {

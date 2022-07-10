@@ -1,0 +1,28 @@
+@media (min-width: $desktop) {
+    .header-navbar {
+        .navbar-nav {
+            width: 100%;
+        }
+        .user-dropdown {
+            position: absolute;
+            right: 25px;
+            .dropdown-menu {
+                min-width: 14rem;
+                left: auto;
+                right: 0px;
+                box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.2);
+                padding: 0px;
+                .dropdown-item {
+                    padding: 12px 6px;
+                    border-bottom: 1px solid #e5e5e5;
+                    border-radius: 0.25rem;
+                }
+                .login-window {
+                    border-radius: 3px;
+                    padding: 10px;
+                    background-color: #282a2f;
+                }
+            }
+        }
+    }
+}

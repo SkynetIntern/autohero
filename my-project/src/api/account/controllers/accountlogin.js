@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = {
     login: async(ctx, next) => {
-        const { email, password } = ctx.request.body;
+        const { email, password, sessionid } = ctx.request.body;
 
         const saltRounds = 10;
         let hashPassword = '';
@@ -17,31 +17,34 @@ module.exports = {
                 email,
             }
         });
-        try {
-            if (user || user.password != null) {
-                const isValid = await bcrypt.compare(password, user.password)
-                if (isValid) {
-                    return {
-                        status: 200,
-                        body: {
-                            message: 'all good'
-                        }
+
+        if (user && user.password != null) {
+            const isValid = await bcrypt.compare(password, user.password)
+            if (isValid) {
+
+                await strapi.db.query('api::session.session', 'users-permissions').create({
+                    data: {
+                        email,
+                        sessionid,
+                    }
+                });
+
+                return {
+                    status: 200,
+                    body: {
+                        message: 'all good'
                     }
                 }
             }
-        } catch {
-            return {
-                status: 401,
-                body: {
-                    message: 'bad credentials'
-                }
-            }
         }
+
         return {
             status: 401,
             body: {
                 message: 'bad credentials'
             }
         }
+
+
     }
 }
