@@ -33,13 +33,13 @@ module.exports = {
             }
         }
 
-
         let hashPassword = '';
         const saltRounds = 10;
         const salt = await bcrypt.genSalt(saltRounds);
         hashPassword = await bcrypt.hash(password, salt);
-
-        user = await strapi.db.query('api::account.account', 'users-permissions').create({
+        
+        //create a account for the user
+        await strapi.db.query('api::account.account', 'users-permissions').create({
             data: {
                 publishedAt: new Date(),
                 email,
@@ -47,6 +47,14 @@ module.exports = {
                 username,
             }
         });
+        //create a profile for the user
+        await strapi.db.query('api::profile.profile', 'users-permissions').create({
+            data: {
+                publishedAt: new Date(),
+                username
+            }
+        });
+
         return {
             status: 200,
             body: {

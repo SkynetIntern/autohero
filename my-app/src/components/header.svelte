@@ -1,8 +1,13 @@
 <script>
 	import LoginWindow from '/src/components/loginWindow.svelte';
 	export let user;
-    console.log(user);
+
+	console.log(user);
 	if (user) {
+	}
+
+	function loginNavDropdown() {
+		document.querySelector(`[aria-labelledby="${this.id}"]`).classList.toggle('show');
 	}
 </script>
 
@@ -32,6 +37,7 @@
 					data-toggle="dropdown"
 					aria-haspopup="true"
 					aria-expanded="false"
+					on:click={loginNavDropdown}
 				>
 					{#if user.authenticated}
 						Account
@@ -45,9 +51,9 @@
 						<a class="dropdown-item" href="#">Another action</a>
 						<a class="dropdown-item" href="#">Something else here</a>
 					{:else}
-                        <div class="login-window">
-                            <LoginWindow {user} />
-                        </div>
+						<div class="login-window">
+							<LoginWindow {user} />
+						</div>
 					{/if}
 				</div>
 			</li>

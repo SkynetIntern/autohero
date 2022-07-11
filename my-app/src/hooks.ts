@@ -20,9 +20,11 @@ export async function handle({ event, resolve }) {
 
         if (requestBody?.data?.length > 0) {
             const email = requestBody.data[0].attributes.email;
+            const username = requestBody.data[0].attributes.username;
 
             event.locals.user = {}
             event.locals.user.email = email
+            event.locals.user.username = username
             event.locals.user.sessionid = cookies.session_id
             event.locals.user.authenticated = true;
         }

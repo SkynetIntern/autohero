@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "profiles",
+  "info": {
+    "singularName": "profile",
+    "pluralName": "profiles",
+    "displayName": "profile",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string"
+    },
+    "privacy": {
+      "type": "enumeration",
+      "enum": [
+        "PUBLIC",
+        "FRIENDS",
+        "PRIVATE"
+      ],
+      "default": "PUBLIC"
+    }
+  }
+}
