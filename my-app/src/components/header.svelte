@@ -1,8 +1,9 @@
 <script>
+	import Logout from './logout.svelte';
+
 	import LoginWindow from '/src/components/loginWindow.svelte';
 	export let user;
 
-	console.log(user);
 	if (user) {
 	}
 
@@ -48,8 +49,8 @@
 				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					{#if user.authenticated}
 						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="#">Another action</a>
-						<a class="dropdown-item" href="#">Something else here</a>
+						<a class="dropdown-item" href="/u/{user.username}">Your Profile</a>
+						<Logout {user}/>
 					{:else}
 						<div class="login-window">
 							<LoginWindow {user} />

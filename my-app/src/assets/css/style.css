@@ -1,9 +1,16 @@
+a {
+  color: rgb(118, 46, 173);
+}
+a:hover {
+  color: rgb(97, 37, 143);
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
-  color: white;
+  color: rgb(255, 255, 255);
   background-color: #36393f;
 }
 
@@ -12,65 +19,65 @@ body {
 }
 
 .form-group label {
-  color: white;
+  color: rgb(255, 255, 255);
 }
-
 .form-group input {
-  color: white;
+  color: rgb(255, 255, 255);
   background: #202225;
   border: 0;
 }
-
 .form-group input:focus {
   outline: none;
-  color: white;
+  color: rgb(255, 255, 255);
   background-color: #202225;
   border: 0;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
 }
 
 .btn-default {
   background-color: #202225;
   color: white;
   outline: none;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
 }
-
 .btn-default:hover, .btn-default:focus {
   background-color: #151617;
   color: white;
   outline: none;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
 }
 
 @media (min-width: 992px) {
-  .header-navbar .navbar-nav {
+  .header-navbar .navbar-nav, .navbar-nav .navbar-nav {
     width: 100%;
   }
-  .header-navbar .user-dropdown {
+  .header-navbar .user-dropdown, .navbar-nav .user-dropdown {
     position: absolute;
     right: 25px;
   }
-  .header-navbar .user-dropdown .dropdown-menu {
+  .dropdown-menu {
     min-width: 14rem;
     left: auto;
     right: 0px;
-    -webkit-box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.2);
     padding: 0px;
+    background-color: #282a2f;
   }
-  .header-navbar .user-dropdown .dropdown-menu .dropdown-item {
+  .dropdown-menu .dropdown-item {
     padding: 12px 6px;
-    border-bottom: 1px solid #e5e5e5;
     border-radius: 0.25rem;
+    background-color: #282a2f;
+    color: #fff;
   }
-  .header-navbar .user-dropdown .dropdown-menu .login-window {
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #191b1e;
+  }
+  .dropdown-menu .btn {
+    width: 100%;
+  }
+  .dropdown-menu .login-window {
     border-radius: 3px;
     padding: 10px;
     background-color: #282a2f;
   }
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

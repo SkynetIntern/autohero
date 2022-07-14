@@ -29,7 +29,6 @@ export async function post({ request }) {
         })
     })
     const apiResponseBody = await apiResponse.json()
-    console.log(apiResponseBody);
     
     if (apiResponseBody.status === 200) {
         return {

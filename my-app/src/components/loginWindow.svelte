@@ -47,7 +47,8 @@
 				<label for="password">Password</label>
 				<input type="password" class="form-control" bind:value={password} placeholder="Password" />
 			</div>
-			<button type="submit" on:click={login} class="btn btn-default w-100">Login</button>
+			<button type="submit" on:click={login} class="btn btn-default w-100 mb-2">Login</button>
+			<a class="register-link" href="/u/register">Register here</a>
 		</div>
 	</div>
 </div>

@@ -16,6 +16,7 @@
 					sessionid
 				})
 			});
+			location.reload();
         }
 	}
 </script>
