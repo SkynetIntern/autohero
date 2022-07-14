@@ -23,6 +23,18 @@
         "PRIVATE"
       ],
       "default": "PUBLIC"
+    },
+    "friends_1": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "friends_2"
+    },
+    "friends_2": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::profile.profile",
+      "inversedBy": "friends_1"
     }
   }
 }

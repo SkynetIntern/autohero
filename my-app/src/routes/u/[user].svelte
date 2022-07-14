@@ -55,6 +55,7 @@
 <script>
 	export let user, pageUser, error;
 	import Header from '/src/components/header.svelte';
+	import FriendRequest from '/src/components/friendrequest.svelte';
 </script>
 
 <svelte:head>
@@ -63,10 +64,6 @@
 	{:else}
 		<title>Profile | {pageUser.username}</title>
 	{/if}
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="/src/assets/css/bootstrap/bootstrap.min.css" />
-	<link rel="stylesheet" href="/src/assets/css/style.css" />
 </svelte:head>
 <body>
 	<Header {user} />
@@ -90,6 +87,7 @@
 							</div>
 						</div>
 					{:else}
+						<FriendRequest {user} {pageUser}/>
 						{#if pageUser.privacyOption.name == 'Public'}
 							<div class="row">
 								<div class="col">
