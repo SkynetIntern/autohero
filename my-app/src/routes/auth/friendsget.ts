@@ -3,29 +3,31 @@ import { Authorization, ApiRoot } from '/src/auth'
 /** @type {import('@sveltejs/kit').RequestHandler} */
 export async function post({ request }) {
     const body = await request.json()
-    const { senderUsername, receiverUsername } = body;
+    const { username } = body;
 
-    if (senderUsername || receiverUsername) {
-        const apiResponse = await fetch(`${ApiRoot}/api/friend/sendrequest`, {
+    if (username) {
+       
+        const apiResponse = await fetch(`${ApiRoot}/api/friend/getFriends`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization
             },
             body: JSON.stringify({
-                senderUsername,
-                receiverUsername
+                username
             })
         })
         const response = await apiResponse.json()
         const message = response.body.message;
-        
+        const friends = response.body.friends;
+
         if (response.status === 200) {
             return {
                 status: 200,
                 body: {
                     success: true,
-                    message
+                    message,
+                    friends
                 }
             }
         } else {
@@ -33,9 +35,18 @@ export async function post({ request }) {
                 status: 400,
                 body: {
                     success: false,
-                    message
+                    message,
+                    friends
                 }
             }
+        }
+    }
+
+    return {
+        status: 400,
+        body: {
+            success: false,
+            message: "Invalid request"
         }
     }
 }

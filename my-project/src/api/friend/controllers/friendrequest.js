@@ -55,13 +55,21 @@ module.exports = {
                 }
             }
         } else {
-            return {
-                status: 400,
-                body: {
-                    message: 'already friends'
+            if (friend.status == 'PENDING') {
+                return {
+                    status: 400,
+                    body: {
+                        message: 'Already friends'
+                    }
+                }
+            } else {
+                return {
+                    status: 400,
+                    body: {
+                        message: 'Already friends'
+                    }
                 }
             }
         }
-
     }
 }
