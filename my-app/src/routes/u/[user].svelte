@@ -54,6 +54,7 @@
 
 <script>
 	export let user, pageUser, error;
+	console.log(user);
 	import Header from '/src/components/header.svelte';
 	import FriendRequest from '/src/components/friendrequest.svelte';
 </script>
@@ -87,7 +88,10 @@
 							</div>
 						</div>
 					{:else}
-						<FriendRequest {user} {pageUser}/>
+					{#if user.authenticated}
+					<FriendRequest {user} {pageUser}/>
+					{/if}
+						
 						{#if pageUser.privacyOption.name == 'Public'}
 							<div class="row">
 								<div class="col">

@@ -7,9 +7,10 @@
 		};
 	}
 </script>
+
 <script>
 	import Header from '/src/components/header.svelte';
-	import Friendlist from '/src/components/friendlist.svelte';
+	import Footerlist from '/src/components/footerlist.svelte';
 	export let user;
 </script>
 
@@ -17,9 +18,11 @@
 	<title>Homepage</title>
 </svelte:head>
 <body>
-	<Header {user}/>
-	<Friendlist {user}/>
+	<Header {user} />
+	{#if user.authenticated}
+		<Footerlist {user} />
+	{/if}
+
 	<script defer src="/src/assets/js/bootstrap/jquery.js"></script>
 	<script defer src="/src/assets/js/bootstrap/bootstrap.min.js"></script>
-	
 </body>

@@ -1,0 +1,16 @@
+.footer-list {
+    background: #262a31;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    .dropdown-c {
+        height: 100%;
+    }
+    button {
+        background: transparent;
+        box-shadow: none;
+        height: 100%;
+    }
+}

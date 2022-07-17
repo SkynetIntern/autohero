@@ -7,57 +7,28 @@
 	if (user) {
 	}
 
-	function loginNavDropdown() {
-		document.querySelector(`[aria-labelledby="${this.id}"]`).classList.toggle('show');
-	}
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark header-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark header-navbar justify-content-between">
 	<a class="navbar-brand" href="#">Navbar</a>
-	<button
-		class="navbar-toggler"
-		type="button"
-		data-toggle="collapse"
-		data-target="#navbarNavDropdown"
-		aria-controls="navbarNavDropdown"
-		aria-expanded="false"
-		aria-label="Toggle navigation"
-	>
-		<span class="navbar-toggler-icon" />
-	</button>
-	<div class="collapse navbar-collapse" id="navbarNavDropdown">
-		<ul class="navbar-nav">
-			<li class="nav-item active">
-				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-			</li>
-			<li class="nav-item dropdown user-dropdown">
-				<button
-					class="btn btn-secondary dropdown-toggle"
-					type="button"
-					id="dropdownMenuButton"
-					data-toggle="dropdown"
-					aria-haspopup="true"
-					aria-expanded="false"
-					on:click={loginNavDropdown}
-				>
-					{#if user.authenticated}
-						Account
-					{:else}
-						Login
-					{/if}
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					{#if user.authenticated}
-						<a class="dropdown-item" href="#">Action</a>
-						<a class="dropdown-item" href="/u/{user.username}">Your Profile</a>
-						<Logout {user}/>
-					{:else}
-						<div class="login-window">
-							<LoginWindow {user} />
-						</div>
-					{/if}
+	<div class="dropdown-c" data-dropdown>
+		<button data-dropdown-button class="link btn btn-default"
+			>{#if user.authenticated}
+				Account
+			{:else}
+				Login
+			{/if}</button
+		>
+		<div class="dropdown-menu-c right bottom">
+			{#if user.authenticated}
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="/u/{user.username}">Your Profile</a>
+				<Logout {user} />
+			{:else}
+				<div class="login-window">
+					<LoginWindow {user} />
 				</div>
-			</li>
-		</ul>
+			{/if}
+		</div>
 	</div>
 </nav>

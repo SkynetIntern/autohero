@@ -1,38 +1,8 @@
 @media (min-width: $desktop) {
-    .header-navbar, .navbar-nav {
+    .header-navbar,
+    .navbar-nav {
         .navbar-nav {
             width: 100%;
-        }
-        .user-dropdown {
-            position: absolute;
-            right: 25px;
-        }
-    }
-
-    .dropdown-menu {
-        min-width: 14rem;
-        left: auto;
-        right: 0px;
-        box-shadow: 0px 0px 12px -5px rgba(0, 0, 0, 0.2);
-        padding: 0px;
-        background-color: #282a2f;
-        
-        .dropdown-item {
-            padding: 12px 6px;
-            border-radius: 0.25rem;
-            background-color: #282a2f;
-            color: #fff;
-            &:hover {
-                background-color: #191b1e;
-            }
-        }
-        .btn {
-            width: 100%;
-        }
-        .login-window {
-            border-radius: 3px;
-            padding: 10px;
-            background-color: #282a2f;
         }
     }
 }
