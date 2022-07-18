@@ -2,10 +2,12 @@
     label {
         color: rgb(255, 255, 255);
     }
+
     input {
         color: rgb(255, 255, 255);
         background: #202225;
         border: 0;
+
         &:focus {
             outline: none;
             color: rgb(255, 255, 255);
@@ -21,6 +23,7 @@
     color: white;
     outline: none;
     box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
+
     &:hover,
     &:focus {
         background-color: #151617;
@@ -28,4 +31,33 @@
         outline: none;
         box-shadow: 0 0 0 0.2rem rgba(14, 14, 14, 0.25);
     }
+}
+
+.btn-list {
+    color: white;
+    box-shadow: none;
+    display: flex;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: #36393f 1px solid;
+
+    &:hover,
+    &:focus {
+        box-shadow: none;
+        color: white;
+        outline: none;
+    }
+}
+
+.link-decline {
+    width: fit-content !important;
+    color: crimson;
+    cursor: pointer;
+}
+
+.link-accept {
+    width: fit-content !important;
+    color: green;
+    cursor: pointer;
 }

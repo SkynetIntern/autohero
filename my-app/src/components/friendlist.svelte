@@ -28,7 +28,7 @@
 			}
 		} catch (err) {}
 	}
-	async function cancleFriendrequest(friendrequestId){
+	async function cancleFriendrequest(friendrequestId) {
 		try {
 			if (friendrequestId) {
 				const res = await fetch('/auth/friendRequestDecline', {
@@ -45,12 +45,11 @@
 				if (res.status == 200) {
 					listFriends();
 				} else {
-
 				}
 			}
 		} catch (err) {}
 	}
-	async function acceptFriendrequest(friendrequestId){
+	async function acceptFriendrequest(friendrequestId) {
 		try {
 			if (friendrequestId) {
 				const res = await fetch('/auth/friendRequestAccept', {
@@ -67,7 +66,6 @@
 				if (res.status == 200) {
 					listFriends();
 				} else {
-
 				}
 			}
 		} catch (err) {}
@@ -77,46 +75,55 @@
 	});
 </script>
 
-<div class="friend-container">
-	<div class="friend-list">
-		<div class="friend-list-header">
-			<h3>Friends</h3>
-		</div>
-		<div class="friend-list-body">
-			<div class="friend-list-item friend-list-item-pending">
-				<h3>Pending friendrequests</h3>
-				{#each friends as friend}
-					<div class="friendrequest pending-friendrequest">
-						{#if friend.status == 'PENDING'}
+<div class="friend-list">
+	<div class="friend-list-item friend-list-item-pending">
+		<a
+			class="btn btn-list"
+			data-toggle="collapse"
+			href="#collapseExample"
+			role="button"
+			aria-expanded="false"
+			aria-controls="collapseExample"
+		>
+			Pending friendrequests
+		</a>
+		<div class="collapse" id="collapseExample">
+			{#each friends as friend}
+				{#if friend.status == 'PENDING'}
+					{#if friend.profile.username == user.username}
+						<div class="friendrequest pending-friendrequest">
 							<div class="pending-friendrequest-text">
-								<p>{friend.friendProfile.username}</p>
-								{#if friend.profile.username == user.username}
-									<i>request sent</i>
-									<button on:click={cancleFriendrequest(friend.id)}>cancle friendrequest</button>
-									{:else}
-									<i>request received</i>
-									<button on:click={cancleFriendrequest(friend.id)}>decline friendrequest</button>
-									<button on:click={acceptFriendrequest(friend.id)}>accept friendrequest</button>
-								{/if}
-								<p></p>
+								<p class="request-username">{friend.friendProfile.username}</p>
+								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
+									Cancel friend request
+								</div>
 							</div>
-						{/if}
-					</div>
-				{/each}
-			</div>
-			<div class="friend-list-item friend-list-item-accepted">
-				<h3>Friends</h3>
-				{#each friends as friend}
-					<div class="friendrequest accepted-friendrequest">
-						{#if friend.status == 'ACCEPTED'}
+						</div>
+					{:else}
+						<div class="friendrequest pending-friendrequest">
 							<div class="pending-friendrequest-text">
-								<p>{friend.friendProfile.username}</p>
+								<p class="request-username">{friend.friendProfile.username}</p>
+								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
+									Decline friendrequest
+								</div>
+								<div class="link-accept" on:click={acceptFriendrequest(friend.id)}>
+									Accept friendrequest
+								</div>
 							</div>
-						{/if}
-					</div>
-				{/each}
-			</div>
-			
+						</div>
+					{/if}
+				{/if}
+			{/each}
 		</div>
+	</div>
+	<div class="friend-list-item friend-list-item-accepted">
+		<h3>Friends</h3>
+		{#each friends as friend}
+			{#if friend.status == 'ACCEPTED'}
+				<div class="friendrequest accepted-friendrequest">
+					<p class="request-username">{friend.friendProfile.username}</p>
+				</div>
+			{/if}
+		{/each}
 	</div>
 </div>

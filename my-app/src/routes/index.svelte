@@ -22,7 +22,4 @@
 	{#if user.authenticated}
 		<Footerlist {user} />
 	{/if}
-
-	<script defer src="/src/assets/js/bootstrap/jquery.js"></script>
-	<script defer src="/src/assets/js/bootstrap/bootstrap.min.js"></script>
 </body>
