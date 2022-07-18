@@ -218,4 +218,11 @@ html {
 .dragbar .right {
   display: flex;
   align-items: center;
+}
+
+.context-menu-container {
+  display: none;
+}
+.context-menu-container.active {
+  display: block;
 }/*# sourceMappingURL=style.css.map */

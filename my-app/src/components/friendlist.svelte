@@ -93,7 +93,10 @@
 					{#if friend.profile.username == user.username}
 						<div class="friendrequest pending-friendrequest">
 							<div class="pending-friendrequest-text">
-								<p class="request-username">{friend.friendProfile.username}</p>
+								<p class="request-username" data-context-menu-button>
+									{friend.friendProfile.username}
+								</p>
+								<div data-context-menu class="context-menu-container">lol</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Cancel friend request
 								</div>
@@ -102,7 +105,10 @@
 					{:else}
 						<div class="friendrequest pending-friendrequest">
 							<div class="pending-friendrequest-text">
-								<p class="request-username">{friend.friendProfile.username}</p>
+								<p class="request-username" data-context-menu-button>
+									{friend.friendProfile.username}
+								</p>
+								<div data-context-menu class="context-menu-container">lol</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Decline friendrequest
 								</div>
@@ -121,7 +127,8 @@
 		{#each friends as friend}
 			{#if friend.status == 'ACCEPTED'}
 				<div class="friendrequest accepted-friendrequest">
-					<p class="request-username">{friend.friendProfile.username}</p>
+					<p class="request-username" data-context-menu-button>{friend.friendProfile.username}</p>
+					<div data-context-menu class="context-menu-container">lol</div>
 				</div>
 			{/if}
 		{/each}
