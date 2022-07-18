@@ -1,7 +1,7 @@
 <script>
 	import Logout from './logout.svelte';
-
 	import LoginWindow from '/src/components/loginWindow.svelte';
+	import { onMount } from 'svelte';
 	export let user;
 
 	if (user) {
@@ -19,7 +19,7 @@
 				Login
 			{/if}</button
 		>
-		<div class="dropdown-menu-c right bottom">
+		<div class="dropdown-menu-c bottom right">
 			{#if user.authenticated}
 				<a class="dropdown-item" href="#">Action</a>
 				<a class="dropdown-item" href="/u/{user.username}">Your Profile</a>

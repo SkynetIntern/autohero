@@ -197,4 +197,25 @@ html {
   padding: 8px 0px;
   margin: 5px 0px;
   border-bottom: 1px solid #36393f;
+}
+
+.dragbar {
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: move;
+  z-index: 9;
+}
+.dragbar .right {
+  margin-left: auto;
+  display: flex;
+}
+.dragbar .option {
+  cursor: pointer;
+  padding: 0px 6px;
+  z-index: 10;
+}
+.dragbar .left,
+.dragbar .right {
+  display: flex;
+  align-items: center;
 }/*# sourceMappingURL=style.css.map */

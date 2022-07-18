@@ -1,0 +1,23 @@
+.dragbar {
+    height: 25px;
+    background-color: rgba($color: #000000, $alpha: .2);
+    cursor: move;
+    z-index: 9;
+
+    .right {
+        margin-left: auto;
+        display: flex;
+    }
+
+    .option {
+        cursor: pointer;
+        padding: 0px 6px;
+        z-index: 10;
+    }
+
+    .left,
+    .right{
+        display: flex;
+        align-items: center;
+    }
+}
