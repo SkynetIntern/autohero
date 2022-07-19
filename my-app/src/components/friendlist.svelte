@@ -1,9 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-
+	export let addChatwindows = () => {};
 	export let user;
 	let friends = [];
 
+	let chatwindows = [];
+	
 	async function listFriends() {
 		const username = user.username;
 		try {
@@ -70,6 +72,14 @@
 			}
 		} catch (err) {}
 	}
+	async function gotoProfile(username) {
+		//redirect to profile
+		window.location.href = `/u/${username}`;
+	}
+	async function openChatwindow(username) {
+		//TODO: open chatwindow	
+	}
+
 	onMount(() => {
 		listFriends();
 	});
@@ -96,7 +106,10 @@
 								<p class="request-username" data-context-menu-button>
 									{friend.friendProfile.username}
 								</p>
-								<div data-context-menu class="context-menu-container">lol</div>
+								<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
+									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
+									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Cancel friendrequest</a>
+								</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Cancel friend request
 								</div>
@@ -108,7 +121,11 @@
 								<p class="request-username" data-context-menu-button>
 									{friend.friendProfile.username}
 								</p>
-								<div data-context-menu class="context-menu-container">lol</div>
+								<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
+									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
+									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Remove friend</a>
+									<a class="context-menu-link" on:click={acceptFriendrequest(friend.id)}>Accept friend</a>
+								</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Decline friendrequest
 								</div>
@@ -128,7 +145,12 @@
 			{#if friend.status == 'ACCEPTED'}
 				<div class="friendrequest accepted-friendrequest">
 					<p class="request-username" data-context-menu-button>{friend.friendProfile.username}</p>
-					<div data-context-menu class="context-menu-container">lol</div>
+					<button on:click="{() => addChatwindows(friend.friendProfile)}">Add Chat</button>
+					<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
+						<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
+						<a class="context-menu-link" on:click="{() => addChatwindows(friend.friendProfile)}">Chat</a>
+						<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Remove friend</a>
+					</div>
 				</div>
 			{/if}
 		{/each}
