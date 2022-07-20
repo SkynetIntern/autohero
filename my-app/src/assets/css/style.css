@@ -26,6 +26,11 @@ html {
   padding: 5px;
 }
 
+.login-window {
+  width: 200px;
+  padding: 10px;
+}
+
 .form-group label {
   color: rgb(255, 255, 255);
 }
@@ -189,7 +194,8 @@ html {
 .friend-list .friendrequest .request-username {
   font-weight: bold;
 }
-.friend-list .friend-list-item-pending > a, .friend-list .friend-list-item-accepted > h3 {
+.friend-list .friend-list-item-pending > a,
+.friend-list .friend-list-item-accepted > h3 {
   font-size: 18px;
   font-weight: bold;
 }
@@ -197,6 +203,21 @@ html {
   padding: 8px 0px;
   margin: 5px 0px;
   border-bottom: 1px solid #36393f;
+}
+
+.offline-marker,
+.online-marker {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+.offline-marker {
+  background-color: red;
+}
+
+.online-marker {
+  background-color: green;
 }
 
 .dragbar {

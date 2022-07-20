@@ -6,12 +6,20 @@ body {
     color: rgb(255, 255, 255);
     background-color: #36393f;
 }
+
 html {
     color: #fff;
 }
+
 * {
     color: white;
 }
+
 .alert {
     padding: 5px;
+}
+
+.login-window {
+    width: 200px;
+    padding: 10px;
 }

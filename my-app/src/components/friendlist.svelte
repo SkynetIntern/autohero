@@ -1,13 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
+	import { io } from '/src/assets/js/socket/socketinit.js';
 	export let addChatwindows = () => {};
 	export let user;
 	let friends = [];
 
-	let chatwindows = [];
-	
 	async function listFriends() {
 		const username = user.username;
+		let friendsUsername = [];
 		try {
 			if (user) {
 				const res = await fetch('/auth/friendsget', {
@@ -22,13 +22,32 @@
 
 				const data = await res.json();
 				if (res.status == 200) {
-					friends = data.friends;
-					console.log(friends);
+					let friendsTemp = data.friends;
+
+					friendsTemp.forEach((friend) => {
+						if (friend.friendProfile.username != user.username) {
+							friendsUsername.push(friend.friendProfile.username);
+						}
+					});
+
+					io.emit('friendOnlineStatus', friendsUsername);
+					io.on('friendOnlineStatus', (friendsUsernameStatus) => {
+						friendsUsernameStatus.forEach((friendUsernameStatus) => {
+							friendsTemp.forEach((friend) => {
+								if (friend.friendProfile.username == friendUsernameStatus.username) {
+									friend.friendProfile.status = friendUsernameStatus.status;
+								}
+							});
+						});
+						friends = friendsTemp;
+					});
 				} else {
 					friends = [];
 				}
 			}
-		} catch (err) {}
+		} catch (err) {
+			console.log(err);
+		}
 	}
 	async function cancleFriendrequest(friendrequestId) {
 		try {
@@ -76,12 +95,13 @@
 		//redirect to profile
 		window.location.href = `/u/${username}`;
 	}
-	async function openChatwindow(username) {
-		//TODO: open chatwindow	
-	}
 
 	onMount(() => {
+		//set interval to check if friends are online
 		listFriends();
+		setInterval(() => {
+			listFriends();
+		}, 5000);
 	});
 </script>
 
@@ -106,9 +126,17 @@
 								<p class="request-username" data-context-menu-button>
 									{friend.friendProfile.username}
 								</p>
-								<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
-									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
-									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Cancel friendrequest</a>
+								<div
+									data-context-menu
+									data-context-menu-parent="contextmenu1"
+									class="context-menu-container"
+								>
+									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}
+										>Profile</a
+									>
+									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}
+										>Cancel friendrequest</a
+									>
 								</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Cancel friend request
@@ -121,10 +149,20 @@
 								<p class="request-username" data-context-menu-button>
 									{friend.friendProfile.username}
 								</p>
-								<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
-									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
-									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Remove friend</a>
-									<a class="context-menu-link" on:click={acceptFriendrequest(friend.id)}>Accept friend</a>
+								<div
+									data-context-menu
+									data-context-menu-parent="contextmenu1"
+									class="context-menu-container"
+								>
+									<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}
+										>Profile</a
+									>
+									<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}
+										>Remove friend</a
+									>
+									<a class="context-menu-link" on:click={acceptFriendrequest(friend.id)}
+										>Accept friend</a
+									>
 								</div>
 								<div class="link-decline" on:click={cancleFriendrequest(friend.id)}>
 									Decline friendrequest
@@ -144,11 +182,24 @@
 		{#each friends as friend}
 			{#if friend.status == 'ACCEPTED'}
 				<div class="friendrequest accepted-friendrequest">
+					{#if friend.friendProfile.status == 'online'}
+						<div class="online-marker" />
+					{:else if friend.friendProfile.status == 'offline'}
+						<div class="offline-marker" />
+					{/if}
 					<p class="request-username" data-context-menu-button>{friend.friendProfile.username}</p>
-					<button on:click="{() => addChatwindows(friend.friendProfile)}">Add Chat</button>
-					<div data-context-menu data-context-menu-parent="contextmenu1" class="context-menu-container">
-						<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}>Profile</a>
-						<a class="context-menu-link" on:click="{() => addChatwindows(friend.friendProfile)}">Chat</a>
+					<button on:click={() => addChatwindows(friend.friendProfile, friend.id)}>Add Chat</button>
+					<div
+						data-context-menu
+						data-context-menu-parent="contextmenu1"
+						class="context-menu-container"
+					>
+						<a class="context-menu-link" on:click={gotoProfile(friend.friendProfile.username)}
+							>Profile</a
+						>
+						<a class="context-menu-link" on:click={() => addChatwindows(friend.friendProfile, friend.id)}
+							>Chat</a
+						>
 						<a class="context-menu-link" on:click={cancleFriendrequest(friend.id)}>Remove friend</a>
 					</div>
 				</div>

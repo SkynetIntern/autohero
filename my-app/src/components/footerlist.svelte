@@ -5,6 +5,7 @@
 	import Friendlist from '/src/components/friendlist.svelte';
 	import Chatwindow from '/src/components/chatwindow.svelte';
 	import { onMount } from 'svelte';
+	import { io } from '/src/assets/js/socket/socketinit.js';
 	export let user;
 
 	if (user) {
@@ -12,13 +13,23 @@
 
 	let chatwindows = [];
 	let counter = 0;
-	function addChatwindows(friendUser) {
+	function addChatwindows(friendUser, friendlistId, data = {}) {
 		counter++;
 		let chatwindow = {
 			index: counter,
-			friendUser
+			friendUser,
+			friendlistId
 		};
-		chatwindows = [...chatwindows, chatwindow];
+		//check if chatwindow already exists
+		let chatwindowExists = false;
+		chatwindows.forEach((cw) => {
+			if (cw.friendlistId == friendlistId) {
+				chatwindowExists = true;
+			}
+		});
+		if (!chatwindowExists) {
+			chatwindows = [...chatwindows, chatwindow];
+		}
 	}
 
 	function updateDropdownMenu() {
@@ -37,9 +48,23 @@
 			dropdown.style.transform = `translateX(-${dropdownWidth}px)`;
 		});
 	}
-
 	onMount(() => {
 		updateDropdownMenu();
+		io.on('privateMessage', (data) => {
+			if (chatwindows.length <= 0) {
+				//create new chatwindow and add data to it for the first message
+				addChatwindows(data.from, data.room, data);
+			} else {
+				chatwindows.forEach((chatwindow) => {
+					if (chatwindow.friendlistId === data.room) {
+						//chatwindow already exists
+					} else {
+						//create new chatwindow and add data to it for the first message
+						addChatwindows(data.from, data.room, data);
+					}
+				});
+			}
+		});
 	});
 </script>
 
@@ -48,16 +73,23 @@
 	<div class="d-flex">
 		<div class="chat-window-tab-list">
 			{#each chatwindows as chatwindow}
-				<div class="dropdown-c"  data-dropdown>
-					<button data-dropdown-button on:click={updateDropdownMenu} class="link btn btn-default">{chatwindow.friendUser.username}</button>
+				<div class="dropdown-c" data-dropdown>
+					<button data-dropdown-button on:click={updateDropdownMenu} class="link btn btn-default"
+						>{chatwindow.friendUser.username}</button
+					>
 					<div
 						data-dragable
 						data-pinable
 						context-menu-parent-container="contextmenu1"
 						class="dropdown-menu-c top"
-						
-					>	<Dragbar id="chat{chatwindow.index}"/>
-						<Chatwindow {user} friendUser={chatwindow.friendUser} />
+					>
+						<Dragbar id="chat{chatwindow.index}" />
+						<Chatwindow
+							{user}
+							friendUser={chatwindow.friendUser}
+							friendlistId={chatwindow.friendlistId}
+							dataEx={chatwindow.data}
+						/>
 					</div>
 				</div>
 			{/each}
@@ -69,10 +101,12 @@
 				data-pinable
 				context-menu-parent-container="contextmenu1"
 				class="dropdown-menu-c top"
-	
 			>
-				<Dragbar id="friendlist"/>
-				<Friendlist addChatwindows={(friendUser) => addChatwindows(friendUser)} {user} />
+				<Dragbar id="friendlist" />
+				<Friendlist
+					addChatwindows={(friendUser, friendlistid) => addChatwindows(friendUser, friendlistid)}
+					{user}
+				/>
 			</div>
 		</div>
 	</div>

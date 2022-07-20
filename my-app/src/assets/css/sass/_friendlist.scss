@@ -9,6 +9,7 @@
         width: 0px;
         background: transparent;
     }
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -21,17 +22,36 @@
             margin: 0;
         }
 
-        .request-username{
+        .request-username {
             font-weight: bold;
         }
     }
-    .friend-list-item-pending > a, .friend-list-item-accepted > h3 {
+
+    .friend-list-item-pending>a,
+    .friend-list-item-accepted>h3 {
         font-size: 18px;
         font-weight: bold;
     }
-    .friend-list-item-accepted > h3{
+
+    .friend-list-item-accepted>h3 {
         padding: 8px 0px;
         margin: 5px 0px;
         border-bottom: 1px solid #36393f;
     }
+}
+
+.offline-marker,
+.online-marker {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}
+
+.offline-marker {
+    background-color: red;
+}
+
+.online-marker {
+    background-color: green;
+    
 }

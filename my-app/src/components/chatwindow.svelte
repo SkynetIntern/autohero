@@ -4,22 +4,44 @@
 
 	export let user;
 	export let friendUser;
+	export let friendlistId;
+	export let dataEx;
 
 	onMount(() => {
-		io.on('message', (message) => {
-			// Listen to the message event
-			console.log(message);
+		io.on('privateMessage', (data) => {
+			drawMessage(data);
 		});
 
-		sendMessage();
+		if (dataEx) {
+			drawMessage(dataEx);
+		} else {
+			// sendMessage();
+		}
 	});
 
-	function sendMessage() {
-		const message = 'Hello World!';
-		io.emit('message', message); // Send the message
+	async function sendPrivateMessage2() {
+		console.log('sendMessage1');
+		// const message = 'Hello World!';
+		// let from = user;
+		// let to = friendUser;
+		// let room = friendlistId;
+		// const data = {
+		// 	from,
+		// 	to,
+		// 	room,
+		// 	message
+		// };
+		// io.emit('privateMessage', data); // Send the message
+	}
+
+	async function drawMessage(data) {
+		console.log(data);
 	}
 </script>
 
 <div class="friend-list">
 	<h1>{friendUser.username}</h1>
+	<div id="sendprivatemsg">
+		send
+	</div>
 </div>
