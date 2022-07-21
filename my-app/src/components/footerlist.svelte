@@ -1,19 +1,21 @@
-<script>
+<script type="ts">
 	import Logout from './logout.svelte';
+	//@ts-ignore
 	import Dragbar from '/src/components/dragbar.svelte';
+	//@ts-ignore
 	import LoginWindow from '/src/components/loginWindow.svelte';
+	//@ts-ignore
 	import Friendlist from '/src/components/friendlist.svelte';
+	//@ts-ignore
 	import Chatwindow from '/src/components/chatwindow.svelte';
 	import { onMount } from 'svelte';
+	//@ts-ignore
 	import { io } from '/src/assets/js/socket/socketinit.js';
-	export let user;
+	export let user:any;
 
-	if (user) {
-	}
-
-	let chatwindows = [];
+	let chatwindows:any[] = [];
 	let counter = 0;
-	function addChatwindows(friendUser, friendlistId, data = {}) {
+	function addChatwindows(friendUser:any, friendlistId:number, data = {}) {
 		counter++;
 		let chatwindow = {
 			index: counter,
@@ -35,22 +37,30 @@
 	function updateDropdownMenu() {
 		document.querySelectorAll('.dropdown-menu-c.top').forEach((dropdown) => {
 			//get height of dropdown menu
-			const buttonWidth = dropdown.parentElement?.querySelector('.link').offsetWidth;
+			//@ts-ignore
+			const buttonWidth = dropdown?.parentElement?.querySelector('.link')?.offsetWidth;
+			//@ts-ignore
 			const dropdownHeight = dropdown.offsetHeight;
+			//@ts-ignore
 			const dropdownWidth = dropdown.offsetWidth - buttonWidth;
+			//@ts-ignore
 			dropdown.style.transform = `translate(-${dropdownWidth}px, -${dropdownHeight}px)`;
 		});
 		document.querySelectorAll('.dropdown-menu-c.bottom').forEach((dropdown) => {
 			//get height of dropdown menu
+			//@ts-ignore
 			const buttonWidth = dropdown.parentElement?.querySelector('.link').offsetWidth;
+			//@ts-ignore
 			const dropdownHeight = dropdown.offsetHeight;
+			//@ts-ignore
 			const dropdownWidth = dropdown.offsetWidth - buttonWidth;
+			//@ts-ignore
 			dropdown.style.transform = `translateX(-${dropdownWidth}px)`;
 		});
 	}
 	onMount(() => {
 		updateDropdownMenu();
-		io.on('privateMessage', (data) => {
+		io.on('privateMessage', (data:any) => {
 			if (chatwindows.length <= 0) {
 				//create new chatwindow and add data to it for the first message
 				addChatwindows(data.from, data.room, data);
@@ -89,6 +99,7 @@
 							friendUser={chatwindow.friendUser}
 							friendlistId={chatwindow.friendlistId}
 							dataEx={chatwindow.data}
+							loopIndex={chatwindow.index}
 						/>
 					</div>
 				</div>

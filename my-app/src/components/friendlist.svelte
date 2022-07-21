@@ -1,13 +1,14 @@
-<script>
+<script type="ts">
 	import { onMount } from 'svelte';
+	//@ts-ignore
 	import { io } from '/src/assets/js/socket/socketinit.js';
 	export let addChatwindows = () => {};
-	export let user;
-	let friends = [];
+	export let user: any;
+	let friends:any[] = [];
 
 	async function listFriends() {
 		const username = user.username;
-		let friendsUsername = [];
+		let friendsUsername:any[] = [];
 		try {
 			if (user) {
 				const res = await fetch('/auth/friendsget', {
@@ -24,16 +25,16 @@
 				if (res.status == 200) {
 					let friendsTemp = data.friends;
 
-					friendsTemp.forEach((friend) => {
+					friendsTemp.forEach((friend:any) => {
 						if (friend.friendProfile.username != user.username) {
 							friendsUsername.push(friend.friendProfile.username);
 						}
 					});
 
 					io.emit('friendOnlineStatus', friendsUsername);
-					io.on('friendOnlineStatus', (friendsUsernameStatus) => {
-						friendsUsernameStatus.forEach((friendUsernameStatus) => {
-							friendsTemp.forEach((friend) => {
+					io.on('friendOnlineStatus', (friendsUsernameStatus:any[]) => {
+						friendsUsernameStatus.forEach((friendUsernameStatus:any) => {
+							friendsTemp.forEach((friend:any) => {
 								if (friend.friendProfile.username == friendUsernameStatus.username) {
 									friend.friendProfile.status = friendUsernameStatus.status;
 								}
@@ -49,7 +50,7 @@
 			console.log(err);
 		}
 	}
-	async function cancleFriendrequest(friendrequestId) {
+	async function cancleFriendrequest(friendrequestId:number) {
 		try {
 			if (friendrequestId) {
 				const res = await fetch('/auth/friendRequestDecline', {
@@ -70,7 +71,7 @@
 			}
 		} catch (err) {}
 	}
-	async function acceptFriendrequest(friendrequestId) {
+	async function acceptFriendrequest(friendrequestId:number) {
 		try {
 			if (friendrequestId) {
 				const res = await fetch('/auth/friendRequestAccept', {
@@ -91,7 +92,7 @@
 			}
 		} catch (err) {}
 	}
-	async function gotoProfile(username) {
+	async function gotoProfile(username:string) {
 		//redirect to profile
 		window.location.href = `/u/${username}`;
 	}
