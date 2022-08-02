@@ -20,7 +20,8 @@
 		let chatwindow = {
 			index: counter,
 			friendUser,
-			friendlistId
+			friendlistId,
+			data
 		};
 		//check if chatwindow already exists
 		let chatwindowExists = false;
