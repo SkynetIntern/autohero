@@ -50,7 +50,6 @@
 				const elementTopPos = elmnt.offsetTop - pos2;
 				const elementLeftPos = elmnt.offsetLeft - pos1;
 
-				console.log(mousePosition);
 				if (mousePosition.y < 10) {
 					
 				} else {

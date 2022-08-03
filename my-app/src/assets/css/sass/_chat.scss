@@ -1,0 +1,78 @@
+.message-window {
+    height: 72%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+
+    .message {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        border-bottom: 1px solid #36393f;
+
+        .username {
+            padding-right: 10px;
+
+        }
+
+        .time,
+        .username {
+            color: #ffffff9d;
+            font-size: 14px;
+            font-weight: 200;
+            font-style: italic;
+
+        }
+    }
+
+    .sender {
+        text-align: right;
+        justify-content: end;
+    }
+
+    .receiver {
+        text-align: left;
+        justify-content: start;
+    }
+
+    .message.error {
+        color: rgb(255 255 255 / 75%);
+
+        .error-message {
+            text-align: center;
+        }
+
+        >div {
+            color: #ffffff9d;
+            font-size: 16px;
+            font-weight: 200;
+            font-style: italic;
+        }
+    }
+}
+
+.message-input {
+    display: flex;
+    justify-content: space-between;
+    margin: 0px !important;
+
+    .btn {
+        width: fit-content !important;
+        padding: 6px 16px !important;
+    }
+
+    input[type="text"] {
+        width: 70%;
+        padding: 6px 16px !important;
+    }
+}

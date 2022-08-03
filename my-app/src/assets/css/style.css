@@ -277,4 +277,71 @@ html {
   transition: background-color 250ms ease-in-out;
   color: #fff;
   cursor: pointer;
+}
+
+.message-window {
+  height: 72%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.message-window::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+.message-window .message {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-bottom: 1px solid #36393f;
+}
+.message-window .message .username {
+  padding-right: 10px;
+}
+.message-window .message .time,
+.message-window .message .username {
+  color: rgba(255, 255, 255, 0.6156862745);
+  font-size: 14px;
+  font-weight: 200;
+  font-style: italic;
+}
+.message-window .sender {
+  text-align: right;
+  justify-content: end;
+}
+.message-window .receiver {
+  text-align: left;
+  justify-content: start;
+}
+.message-window .message.error {
+  color: rgba(255, 255, 255, 0.75);
+}
+.message-window .message.error .error-message {
+  text-align: center;
+}
+.message-window .message.error > div {
+  color: rgba(255, 255, 255, 0.6156862745);
+  font-size: 16px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.message-input {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px !important;
+}
+.message-input .btn {
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  padding: 6px 16px !important;
+}
+.message-input input[type=text] {
+  width: 70%;
+  padding: 6px 16px !important;
 }/*# sourceMappingURL=style.css.map */

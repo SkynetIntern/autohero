@@ -33,7 +33,7 @@ export default class SocketConnection {
 
             socket.on('privateMessage', (data) => {
                 if (this.checkAuthentication(socket)) {
-                    this.sendPrivateMessage(socket,data);
+                    this.sendPrivateMessage(socket, data);
                 }
             })
 
@@ -70,7 +70,7 @@ export default class SocketConnection {
         const fromUser = data.from;
         const room = data.room;
         const message = data.message;
-        console.log(fromUser);
+        const time = new Date().toLocaleString();
         if (this.usernameSocketMap.has(toUser.username) && this.usernameSocketMap.has(fromUser.username)) {
             //connect self to the room
             socket.join(room);
@@ -83,11 +83,18 @@ export default class SocketConnection {
                 to: toUser,
                 room: room,
                 message: message,
-                time: new Date().toLocaleString()
+                time: time
             });
         } else {
             //send error message not online or not found
-            socket.emit('privateMessage', {success: false, message: 'User not online'});
+            socket.emit('privateMessage', {
+                success: false,
+                from: fromUser,
+                to: toUser,
+                message: message,
+                time: time,
+                errorMessage: 'User not online'
+            });
         }
     }
 
