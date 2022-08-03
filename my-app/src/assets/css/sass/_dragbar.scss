@@ -4,6 +4,10 @@
     cursor: move;
     z-index: 9;
 
+    &.default-cursor {
+        cursor: default !important;
+    }
+
     .right {
         margin-left: auto;
         display: flex;
@@ -16,7 +20,7 @@
     }
 
     .left,
-    .right{
+    .right {
         display: flex;
         align-items: center;
     }

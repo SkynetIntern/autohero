@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	//@ts-ignore
 	import { io } from '/src/assets/js/socket/socketinit.js';
+import Friendrequest from './friendrequest.svelte';
 	export let user:any;
 
 	let chatwindows:any[] = [];
@@ -89,12 +90,10 @@
 						>{chatwindow.friendUser.username}</button
 					>
 					<div
-						data-dragable
-						data-pinable
 						context-menu-parent-container="contextmenu1"
 						class="dropdown-menu-c top"
 					>
-						<Dragbar id="chat{chatwindow.index}" />
+						<Dragbar dragAble={true} pinAble={true} title={chatwindow.friendUser.username} id="chat{chatwindow.index}" />
 						<Chatwindow
 							{user}
 							friendUser={chatwindow.friendUser}
@@ -109,12 +108,10 @@
 		<div class="dropdown-c" data-dropdown>
 			<button data-dropdown-button class="link btn btn-default">Friends</button>
 			<div
-				data-dragable
-				data-pinable
 				context-menu-parent-container="contextmenu1"
 				class="dropdown-menu-c top"
 			>
-				<Dragbar id="friendlist" />
+				<Dragbar dragAble={true} pinAble={true} title={"Friendlist"} id="friendlist" />
 				<Friendlist
 					addChatwindows={(friendUser, friendlistid) => addChatwindows(friendUser, friendlistid)}
 					{user}

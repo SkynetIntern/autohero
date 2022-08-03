@@ -226,6 +226,9 @@ html {
   cursor: move;
   z-index: 9;
 }
+.dragbar.default-cursor {
+  cursor: default !important;
+}
 .dragbar .right {
   margin-left: auto;
   display: flex;
