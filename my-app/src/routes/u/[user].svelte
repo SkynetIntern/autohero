@@ -1,7 +1,9 @@
-<script context="module">
+<script context="module" type="ts">
+	//@ts-ignore
 	import { Privacy } from '/src/Enums/profileEnums.ts';
+	//@ts-ignore
 	import { Authorization, ApiRoot } from '/src/auth';
-
+	//@ts-ignore
 	export async function load({ session, params }) {
 		const sessionUser = session.body.user;
 		const username = params.user;
@@ -23,12 +25,14 @@
 			const selectedPrivacyOption = requestBody.body.profile.privacy;
 			const privacyOption = Privacy[selectedPrivacyOption];
 
-			let pageUser = {};
-			pageUser.username = username;
-			pageUser.privacyOption = privacyOption;
+			let pageUser = {
+				username,
+				privacyOption
+			};
 
 			// Page Owner
 			if (sessionUser.username === pageUser.username) {
+				//@ts-ignore
 				pageUser.isOwner = true;
 			}
 
@@ -41,7 +45,7 @@
 				}
 			};
 		} else {
-			const error = 'User not found';
+			const error:string = 'User not found';
 			return {
 				props: {
 					error,
@@ -53,9 +57,11 @@
 </script>
 
 <script>
+	//@ts-ignore
 	export let user, pageUser, error;
-	console.log(user);
+	//@ts-ignore
 	import Header from '/src/components/header.svelte';
+	//@ts-ignore
 	import FriendRequest from '/src/components/friendrequest.svelte';
 </script>
 

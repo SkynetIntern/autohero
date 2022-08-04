@@ -1,4 +1,5 @@
-<script context="module">
+<script context="module" type="ts">
+	//@ts-ignore
 	export async function load({ session }) {
 		return {
 			props: {
@@ -7,10 +8,12 @@
 		};
 	}
 </script>
-<script>
+<script type="ts">
+	//@ts-ignore
 	import Register from '/src/components/register.svelte';
+	//@ts-ignore
 	import Header from '/src/components/header.svelte';
-	export let user;
+	export let user:any;
 	if (user) {
 	}
 </script>
