@@ -1,12 +1,12 @@
-<script>
+<script type="ts">
 	import Logout from './logout.svelte';
+	//@ts-ignore
 	import LoginWindow from '/src/components/loginWindow.svelte';
 	import { onMount } from 'svelte';
-	export let user;
+	export let user: any;
 
 	if (user) {
 	}
-
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark header-navbar justify-content-between">

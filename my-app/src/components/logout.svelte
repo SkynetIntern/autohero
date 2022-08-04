@@ -1,5 +1,5 @@
-<script>
-    export let user;
+<script type="ts">
+    export let user:any;
 	async function logout() {
         if (user) {
             

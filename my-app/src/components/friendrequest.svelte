@@ -1,6 +1,6 @@
-<script>
-	export let user;
-	export let pageUser;
+<script type="ts">
+	export let user:any;
+	export let pageUser:any;
 	async function friendrequest() {
 		if (user) {
 			const senderUsername = user.username;

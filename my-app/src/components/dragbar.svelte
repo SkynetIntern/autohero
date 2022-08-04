@@ -1,6 +1,6 @@
 <script type="ts">
 	import { onMount } from 'svelte';
-	export let id: number;
+	export let id: string;
 	export let title: string;
 	export let dragAble: boolean;
 	export let pinAble: boolean;
@@ -8,11 +8,12 @@
 	onMount(() => {
 		let mousePosition: { x: number; y: number };
 		const dragbar = document.querySelector('#' + id);
-
+		if (!dragbar) return;
 		const pinElement = dragbar.querySelector('.pin');
 		if (pinAble && pinElement) {
 			pinElement.addEventListener('click', () => {
-				dragbar.parentNode.parentNode.classList.toggle('pinned');
+				//@ts-ignore
+				dragbar.parentNode?.parentNode?.classList.toggle('pinned');
 			});
 		}
 
@@ -25,23 +26,27 @@
 
 		//get initial position of dragbar.parentElement
 		let dragbarParentPosition = {
-			x: dragbar.parentElement.offsetLeft,
-			y: dragbar.parentElement.offsetTop
+			x: dragbar.parentElement?.offsetLeft,
+			y: dragbar.parentElement?.offsetTop
 		};
 
 		function setDragbarPosition() {
+			if (!dragbar) return;
 			dragbarParentPosition = {
-				x: dragbar.parentElement.offsetLeft,
-				y: dragbar.parentElement.offsetTop
+				x: dragbar.parentElement?.offsetLeft,
+				y: dragbar.parentElement?.offsetTop
 			};
 		}
 
 		function resetDragbarPosition() {
-			if (!dragbar.parentElement.parentElement.classList.contains('pinned')) {
-				dragbar.parentElement.parentElement.classList.remove('active');
+			if (!dragbar) return;
+			if (!dragbar.parentElement?.parentElement?.classList.contains('pinned')) {
+				dragbar.parentElement?.parentElement?.classList.remove('active');
 
 				setTimeout(() => {
+					//@ts-ignore
 					dragbar.parentElement.style.left = dragbarParentPosition.x + 'px';
+					//@ts-ignore
 					dragbar.parentElement.style.top = dragbarParentPosition.y + 'px';
 				}, 175);
 			} else {
@@ -50,20 +55,20 @@
 			}
 		}
 
-		function dragElement(elmnt) {
+		function dragElement(elmnt: any) {
 			let pos1 = 0,
 				pos2 = 0,
 				pos3 = 0,
 				pos4 = 0;
+
 			if (dragbar) {
-				/* if present, the header is where you move the DIV from:*/
+				//@ts-ignore
 				dragbar.onmousedown = dragMouseDown;
 			} else {
-				/* otherwise, move the DIV from anywhere inside the DIV:*/
 				elmnt.onmousedown = dragMouseDown;
 			}
 
-			function dragMouseDown(e) {
+			function dragMouseDown(e: MouseEvent) {
 				e = e || window.event;
 				e.preventDefault();
 				// get the mouse cursor position at startup:
@@ -74,7 +79,7 @@
 				document.onmousemove = elementDrag;
 			}
 
-			function elementDrag(e) {
+			function elementDrag(e: MouseEvent) {
 				e = e || window.event;
 				e.preventDefault();
 				// calculate the new cursor position:
@@ -84,12 +89,8 @@
 				pos4 = e.clientY;
 
 				//clamp the pos3 and pos4 to the window size
-				const bounds = elmnt.getBoundingClientRect();
 				const windowWidth = window.innerWidth;
 				const windowHeight = window.innerHeight;
-
-				const elementTopPos = elmnt.offsetTop - pos2;
-				const elementLeftPos = elmnt.offsetLeft - pos1;
 
 				if (mousePosition.y < 10) {
 				} else {

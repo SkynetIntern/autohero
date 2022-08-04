@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */

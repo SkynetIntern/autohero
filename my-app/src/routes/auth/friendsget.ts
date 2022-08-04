@@ -1,6 +1,8 @@
+// @ts-ignore
 import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
+// @ts-ignore
 export async function post({ request }) {
     const body = await request.json()
     const { username } = body;

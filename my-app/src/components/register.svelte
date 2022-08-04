@@ -1,4 +1,4 @@
-<script>
+<script type="ts">
 	import { goto } from '$app/navigation';
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -6,7 +6,7 @@
 	let email = '';
 	let password = '';
     let username = '';
-	let error = undefined;
+	let error:any = undefined;
 
 	async function login() {
 		try {

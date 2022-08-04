@@ -1,4 +1,4 @@
-<script>
+<script type="ts">
 	import { goto } from '$app/navigation';
 
 	import { createEventDispatcher } from 'svelte';
@@ -6,7 +6,7 @@
 
 	let email = '';
 	let password = '';
-	let error = undefined;
+	let error: any = undefined;
 
 	async function login() {
 		try {
@@ -24,12 +24,10 @@
 			if (res.ok) {
 				goto('/');
 			} else {
-                const data = await res.json();
+				const data = await res.json();
 				error = data.message;
 			}
-		} catch (err) {
-			
-		}
+		} catch (err) {}
 	}
 </script>
 
@@ -42,11 +40,9 @@
 						<h3 class="panel-title">Login</h3>
 					</div>
 					{#if error}
-                    <div class="alert alert-danger">
-                     
-                            {error}
-                       
-                    </div>
+						<div class="alert alert-danger">
+							{error}
+						</div>
 					{/if}
 					<div class="panel-body">
 						<div class="form-group">

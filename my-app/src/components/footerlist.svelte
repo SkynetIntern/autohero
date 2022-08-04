@@ -11,7 +11,7 @@
 	import { onMount } from 'svelte';
 	//@ts-ignore
 	import { io } from '/src/assets/js/socket/socketinit.js';
-import Friendrequest from './friendrequest.svelte';
+	import Friendrequest from './friendrequest.svelte';
 	export let user:any;
 
 	let chatwindows:any[] = [];

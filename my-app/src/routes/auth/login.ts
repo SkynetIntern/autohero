@@ -1,10 +1,13 @@
+// @ts-ignore
 import stringHash from 'string-hash'
 import * as cookie from 'cookie'
 import { serialize } from 'cookie';
+// @ts-ignore
 import { v4 as uuidv4 } from 'uuid'
+// @ts-ignore
 import { Authorization, ApiRoot, CreateSession } from '/src/auth'
 
-
+// @ts-ignore
 export async function post({ request }) {
     const body = await request.json()
     

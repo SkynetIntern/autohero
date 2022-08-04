@@ -106,7 +106,7 @@
 		messageInfoElement.prepend(timeElement);
 		messageInfoElement.prepend(usernameElement);
 		messageElement.prepend(messageInfoElement);
-
+		//@ts-ignore
 		messageWindow.scrollTop = messageWindow.scrollHeight;
 	}
 </script>
