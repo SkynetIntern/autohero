@@ -45,11 +45,11 @@
 				}
 			};
 		} else {
-			const error:string = 'User not found';
+			const error: string = 'User not found';
 			return {
 				props: {
 					error,
-					user: sessionUser,
+					user: sessionUser
 				}
 			};
 		}
@@ -72,59 +72,55 @@
 		<title>Profile | {pageUser.username}</title>
 	{/if}
 </svelte:head>
-<body>
-	<Header {user} />
-	{#if error}
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col">
-					<h1>{error}</h1>
-				</div>
+
+<Header {user} />
+{#if error}
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col">
+				<h1>{error}</h1>
 			</div>
 		</div>
-	{:else}
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					{#if pageUser.isOwner}
+	</div>
+{:else}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				{#if pageUser.isOwner}
+					<div class="row">
+						<div class="col">
+							<h2>Welcome {pageUser.username} to your profile</h2>
+							<p>Your Privacy is set to: {pageUser.privacyOption.description}</p>
+						</div>
+					</div>
+				{:else}
+					{#if user.authenticated}
+						<FriendRequest {user} {pageUser} />
+					{/if}
+
+					{#if pageUser.privacyOption.name == 'Public'}
 						<div class="row">
 							<div class="col">
-								<h2>Welcome {pageUser.username} to your profile</h2>
-								<p>Your Privacy is set to: {pageUser.privacyOption.description}</p>
+								<h2>This is the profile of {pageUser.username}</h2>
 							</div>
 						</div>
-					{:else}
-					{#if user.authenticated}
-					<FriendRequest {user} {pageUser}/>
 					{/if}
-						
-						{#if pageUser.privacyOption.name == 'Public'}
-							<div class="row">
-								<div class="col">
-									<h2>This is the profile of {pageUser.username}</h2>
-								</div>
+					{#if pageUser.privacyOption.name == 'Private'}
+						<div class="row">
+							<div class="col">
+								<h2>This Profile is Private</h2>
 							</div>
-						{/if}
-						{#if pageUser.privacyOption.name == 'Private'}
-							<div class="row">
-								<div class="col">
-									<h2>This Profile is Private</h2>
-								</div>
-							</div>
-						{/if}
-						{#if pageUser.privacyOption.name == 'Friends only'}
-							<div class="row">
-								<div class="col">
-									<h2>This Profile is only visible to friends</h2>
-								</div>
-							</div>
-						{/if}
+						</div>
 					{/if}
-				</div>
+					{#if pageUser.privacyOption.name == 'Friends only'}
+						<div class="row">
+							<div class="col">
+								<h2>This Profile is only visible to friends</h2>
+							</div>
+						</div>
+					{/if}
+				{/if}
 			</div>
 		</div>
-	{/if}
-
-	<script defer src="/src/assets/js/bootstrap/jquery.js"></script>
-	<script defer src="/src/assets/js/bootstrap/bootstrap.min.js"></script>
-</body>
+	</div>
+{/if}

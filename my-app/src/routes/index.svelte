@@ -25,12 +25,15 @@
 <svelte:head>
 	<title>Homepage</title>
 </svelte:head>
+<Header {user} />
 
 <Socket {user} />
 {#if user.authenticated}
 	<Game {user} />
-{:else}{/if}
-<Header {user} />
+{:else}
+<h2>Awesome Site</h2>
+<p>Register now !</p>
+{/if}
 {#if user.authenticated}
 	<Footerlist {user} />
 {/if}

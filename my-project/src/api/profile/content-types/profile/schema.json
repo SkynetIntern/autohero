@@ -35,6 +35,12 @@
       "relation": "manyToMany",
       "target": "api::profile.profile",
       "inversedBy": "friends_1"
+    },
+    "characters": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::character.character",
+      "mappedBy": "profile"
     }
   }
 }
