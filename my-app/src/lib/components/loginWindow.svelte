@@ -1,6 +1,4 @@
 <script type="ts">
-	import { goto } from '$app/navigation';
-
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 

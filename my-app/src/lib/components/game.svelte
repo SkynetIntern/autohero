@@ -1,11 +1,12 @@
 <script type="ts">
 	//@ts-ignore
-	import { io } from '/src/assets/js/socket/socketinit.js';
+	import { io } from '$lib/assets/js/socket/socketinit.js';
 	import { onMount } from 'svelte';
 	//@ts-ignore
 	import * as THREE from 'three';
 	//@ts-ignore
 	import { Clock } from 'three';
+	import Stats from 'three/examples/jsm/libs/stats.module';
 
 	export let user: { email: string; username: string; authenticated: boolean };
 
@@ -32,57 +33,23 @@
 			const renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true });
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			const renderParent = document.getElementById('three-canvas');
-			renderParent.appendChild(renderer.domElement);
-			
+			if (renderParent == null) return;
 
-			const geometry = new THREE.SphereGeometry(0.2, 4, 2);
-			const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
-			
-			const cubes = [];
-			let counter = 0;
-			//create cube in grid position
-			for (let i = 0; i < 20; i++) {
-				for (let j = 0; j < 20; j++) {
-					counter++;
-					let cube;
-					//copy material
-					let newMat = material.clone();
-					cube = new THREE.Mesh(geometry, newMat);
-					cube.material.color.toLerp=new THREE.Color(0xffffff);
-					
-					cube.position.x = i * 0.5 - (10 * 1) / 2;
-					cube.position.yOffset = j * 0.5 - (10 * 1) / 2;
-					cubes.push(cube);
-					scene.add(cube);
-				}
-			}
-			let speed = 0.25;
-			let speedRot = 1;
+			renderParent.appendChild(renderer.domElement);
+			//@ts-ignore
+			let stats = new Stats();
+			renderParent.appendChild(stats.dom);
+
 			function render() {
 				delta = clock.getDelta();
-
-				cubes.forEach((cube) => {
-					
-					cube.rotation.z += 0.01 * speedRot;
-					cube.rotation.y += 0.01 * speedRot;
-					cube.position.y =
-						cube.position.yOffset +
-						Math.sin(time * 1 * Math.PI) * Math.sin(time * 2 * Math.PI) * 1 * speed;
-				});
+				stats.update();
 
 				//custom loop
 				let timeToReach = 1;
 				time += delta;
 				if (time > timeToReach) {
 					time = 0;
-					cubes.forEach((cube) => {
-						cube.material.color.toLerp = new THREE.Color(Math.random() * 0xffffff);
-					});
 				}
-
-				cubes.forEach((cube) => {
-					cube.material.color.lerp(cube.material.color.toLerp, 1 * delta);
-				});
 
 				requestAnimationFrame(render);
 				renderer.render(scene, camera);
@@ -107,9 +74,17 @@
 
 		if (user.authenticated) {
 			initThreeScene();
-			console.log('init three');
 		}
 	});
 </script>
 
-<div id="three-canvas" />
+<div id="three-canvas">
+	<div class="character-list-wrapper">
+		<div id="character-list">
+			<div class="character">
+				<div class="character-level">20</div>
+				<div class="character-name">Character Name</div>
+			</div>
+		</div>
+	</div>
+</div>

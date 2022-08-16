@@ -1,6 +1,6 @@
 <script context="module" type="ts">
 	//@ts-ignore
-	import { Privacy } from '/src/Enums/profileEnums.ts';
+	import { Privacy } from '$lib/Enums/profileEnums.ts';
 	//@ts-ignore
 	import { Authorization, ApiRoot } from '/src/auth';
 	//@ts-ignore
@@ -60,9 +60,9 @@
 	//@ts-ignore
 	export let user, pageUser, error;
 	//@ts-ignore
-	import Header from '/src/components/header.svelte';
+	import Header from '$lib/components/header.svelte';
 	//@ts-ignore
-	import FriendRequest from '/src/components/friendrequest.svelte';
+	import FriendRequest from '$lib/components/friendrequest.svelte';
 </script>
 
 <svelte:head>

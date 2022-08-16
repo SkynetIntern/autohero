@@ -1,7 +1,7 @@
 <script type="ts">
-	import Logout from './logout.svelte';
+	import Logout from '$lib/components/logout.svelte';
 	//@ts-ignore
-	import LoginWindow from '/src/components/loginWindow.svelte';
+	import LoginWindow from '$lib/components/loginWindow.svelte';
 	import { onMount } from 'svelte';
 	export let user: any;
 

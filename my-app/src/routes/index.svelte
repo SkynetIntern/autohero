@@ -11,13 +11,13 @@
 
 <script type="ts">
 	//@ts-ignore
-	import Header from '/src/components/header.svelte';
+	import Header from '$lib/components/header.svelte';
 	//@ts-ignore
-	import Footerlist from '/src/components/footerlist.svelte';
+	import Footerlist from '$lib/components/footerlist.svelte';
 	//@ts-ignore
-	import Socket from '/src/components/socketio.svelte';
+	import Socket from '$lib/components/socketio.svelte';
 	//@ts-ignore
-	import Game from '/src/components/game.svelte';
+	import Game from '$lib/components/game.svelte';
 
 	export let user: any;
 </script>

@@ -1,17 +1,17 @@
 <script type="ts">
 	import Logout from './logout.svelte';
 	//@ts-ignore
-	import Dragbar from '/src/components/dragbar.svelte';
+	import Dragbar from '$lib/components/dragbar.svelte';
 	//@ts-ignore
-	import LoginWindow from '/src/components/loginWindow.svelte';
+	import LoginWindow from '$lib/components/loginWindow.svelte';
 	//@ts-ignore
-	import Friendlist from '/src/components/friendlist.svelte';
+	import Friendlist from '$lib/components/friendlist.svelte';
 	//@ts-ignore
-	import Chatwindow from '/src/components/chatwindow.svelte';
+	import Chatwindow from '$lib/components/chatwindow.svelte';
 	import { onMount } from 'svelte';
 	//@ts-ignore
-	import { io } from '/src/assets/js/socket/socketinit.js';
-	import Friendrequest from './friendrequest.svelte';
+	import { io } from '$lib/assets/js/socket/socketinit.js';
+	import Friendrequest from '$lib/components/friendrequest.svelte';
 	export let user:any;
 
 	let chatwindows:any[] = [];

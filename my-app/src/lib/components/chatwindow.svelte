@@ -1,7 +1,7 @@
 <script type="ts">
 	import { onMount } from 'svelte';
 	//@ts-ignore
-	import { io } from '/src/assets/js/socket/socketinit.js';
+	import { io } from '$lib/assets/js/socket/socketinit.js';
 	//@ts-ignore
 	import { IsObjEmpty } from '/src/lib.js';
 	export let user: any;

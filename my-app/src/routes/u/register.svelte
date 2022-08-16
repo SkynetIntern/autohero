@@ -11,9 +11,9 @@
 
 <script type="ts">
 	//@ts-ignore
-	import Register from '/src/components/register.svelte';
+	import Register from '$lib/components/register.svelte';
 	//@ts-ignore
-	import Header from '/src/components/header.svelte';
+	import Header from '$lib/components/header.svelte';
 	export let user: any;
 	if (user) {
 	}
