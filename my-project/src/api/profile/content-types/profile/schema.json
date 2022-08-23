@@ -41,6 +41,12 @@
       "relation": "oneToMany",
       "target": "api::character.character",
       "mappedBy": "profile"
+    },
+    "session": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::session.session",
+      "inversedBy": "profile"
     }
   }
 }

@@ -3,10 +3,11 @@ import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 // @ts-ignore
-export async function post({ request }) {
+export async function post({ request, locals }) {
     const body = await request.json()
-    const { senderUsername, receiverUsername } = body;
-
+    const { receiverUsername } = body;
+    const senderUsername = locals.user.username ?? false;
+    
     if (senderUsername || receiverUsername) {
         const apiResponse = await fetch(`${ApiRoot}/api/friend/sendrequest`, {
             method: 'POST',

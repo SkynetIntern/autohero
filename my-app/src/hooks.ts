@@ -9,7 +9,7 @@ export async function handle({ event, resolve }) {
     event.locals.user.authenticated = false;
 
     if (cookies?.session_id) {
-        const apiResponse = await fetch(`${ApiRoot}/api/sessions/?filters[sessionid]=${cookies.session_id}`, {
+        const apiResponse = await fetch(`${ApiRoot}/api/sessions/?filters[sessionid]=${cookies.session_id}&populate=*`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,8 +21,10 @@ export async function handle({ event, resolve }) {
         if (requestBody?.data?.length > 0) {
             const email = requestBody.data[0].attributes.email;
             const username = requestBody.data[0].attributes.username;
+            const profileId = requestBody.data[0].attributes.profile.data.id;
 
             event.locals.user = {}
+            event.locals.user.profileId = profileId 
             event.locals.user.email = email
             event.locals.user.username = username
             event.locals.user.sessionid = cookies.session_id

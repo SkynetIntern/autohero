@@ -21,12 +21,20 @@ module.exports = {
         if (user && user.password != null) {
             const isValid = await bcrypt.compare(password, user.password)
             const username = user.username;
+            
             if (isValid) {
+                let profile = await strapi.db.query('api::profile.profile', 'users-permissions').findOne({
+                    where: {
+                        username,
+                    }
+                })
+
                 await strapi.db.query('api::session.session', 'users-permissions').create({
                     data: {
                         email,
                         username,
                         sessionid,
+                        profile: profile.id,
                     }
                 });
 

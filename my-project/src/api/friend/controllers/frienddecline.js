@@ -1,20 +1,38 @@
 module.exports = {
     declinerequest: async (ctx, next) => {
-        const { friendrequestId } = ctx.request.body;
+        const { friendrequestId, user } = ctx.request.body;
 
         if (friendrequestId) {
-            await strapi.db.query('api::friend.friend', 'users-permissions').delete({
+            const response = await strapi.db.query('api::friend.friend', 'users-permissions').delete({
                 where: {
-                    id: friendrequestId,
-                },                
+                    $and: [{
+                        id: friendrequestId
+                    }, {
+                        $or: [{
+                            profile: user.profileId,
+                        }, {
+                            profilefk: user.profileId,
+                        }]
+                    }]
+                },
             });
 
-            return {
-                status: 200,
-                body: {
-                    message: 'Friend request rejected'
+            if (response != null) {
+                return {
+                    status: 200,
+                    body: {
+                        message: 'Friend request rejected'
+                    }
+                }
+            } else {
+                return {
+                    status: 400,
+                    body: {
+                        message: 'Friend request not found'
+                    }
                 }
             }
+
         }
         return {
             status: 400,

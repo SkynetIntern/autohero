@@ -2,9 +2,10 @@
 import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
-export async function post({ request }) {
+export async function post({ request, locals }) {
     const body = await request.json()
     const { friendrequestId } = body;
+    const user = locals.user;
 
     if (friendrequestId) {
         const apiResponse = await fetch(`${ApiRoot}/api/friend/acceptrequest`, {
@@ -14,7 +15,8 @@ export async function post({ request }) {
                 Authorization
             },
             body: JSON.stringify({
-                friendrequestId
+                friendrequestId,
+                user
             })
         })
         const response = await apiResponse.json()

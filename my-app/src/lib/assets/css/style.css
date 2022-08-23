@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "minecraft";
+  src: url(./fonts/Minecraft.ttf);
+}
+* {
+  font-family: "minecraft";
+}
+
 a {
   color: rgb(118, 46, 173);
 }
@@ -100,6 +108,7 @@ html {
   opacity: 1;
 }
 .dropdown-c .dropdown-menu-c {
+  z-index: 10;
   position: absolute;
   background-color: white;
   padding: 0;
@@ -357,7 +366,7 @@ html {
   position: absolute;
   width: 320px;
   padding: 20px;
-  height: calc(100% - 110px);
+  height: calc(100% - 175px);
   right: 0;
 }
 .character-list-wrapper #character-list {
@@ -371,12 +380,15 @@ html {
 .character-list-wrapper #character-list .character {
   display: flex;
   justify-content: space-between;
-  min-height: 40px;
+  min-height: 50px;
+  margin-bottom: 20px;
   align-items: center;
   padding: 5px 12px;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  border: transparent 1px solid;
+  transition: border 225ms ease-in-out;
 }
 .character-list-wrapper #character-list .character:hover {
   background-color: rgba(255, 255, 255, 0.2);
@@ -387,4 +399,33 @@ html {
 }
 .character-list-wrapper #character-list .character.selected {
   border: #f5bd64 1px solid;
+}
+.character-list-wrapper #character-list .character.active {
+  border: gold 1px solid;
+  transition: border 225ms ease-in-out;
+}
+.character-list-wrapper .create-character {
+  min-height: 50px;
+  margin-top: 20px;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 3px;
+  background-color: #2e2e2e;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 26px;
+}
+.character-list-wrapper .create-character:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.character-list-wrapper .create-character:active {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.character-list-wrapper .create-character.selected {
+  border: #f5bd64 1px solid;
+}
+.character-list-wrapper .create-character .create-character-btn {
+  padding: 5px;
+  padding-bottom: 0px;
 }/*# sourceMappingURL=style.css.map */

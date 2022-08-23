@@ -3,11 +3,12 @@ import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 // @ts-ignore
-export async function post({ request }) {
+export async function post({ request, locals }) {
     const body = await request.json()
     const { friendrequestId } = body;
+    const user = locals.user;
 
-    if (friendrequestId) {
+    if (friendrequestId && user) {
         const apiResponse = await fetch(`${ApiRoot}/api/friend/declinerequest`, {
             method: 'POST',
             headers: {
@@ -15,7 +16,8 @@ export async function post({ request }) {
                 Authorization
             },
             body: JSON.stringify({
-                friendrequestId
+                friendrequestId,
+                user
             })
         })
         const response = await apiResponse.json()

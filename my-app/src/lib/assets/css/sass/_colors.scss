@@ -1,7 +1,17 @@
+@font-face {
+    font-family: 'minecraft';
+    src: url(./fonts/Minecraft.ttf);
+}
+
+* {
+    font-family: 'minecraft';
+}
+
 a {
     color: rgb(118, 46, 173);
+
     &:hover {
         color: rgb(97, 37, 143);
-        
+
     }
 }

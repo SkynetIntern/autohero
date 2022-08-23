@@ -28,6 +28,7 @@ module.exports = {
                         select: "*"
                     }
                 },
+
                 where: {
                     $or: [{
                         profile: user.id,
@@ -35,6 +36,7 @@ module.exports = {
                         profilefk: user.id,
                     }]
                 }
+
             });
 
             //loop through friends and get profile
@@ -44,7 +46,7 @@ module.exports = {
                 const friendProfile = friend.profile.id == user.id ? friend.profilefk : friend.profile;
                 friend.friendProfile = friendProfile;
             }
-            
+
             return {
                 status: 200,
                 body: {

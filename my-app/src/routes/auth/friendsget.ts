@@ -3,9 +3,9 @@ import { Authorization, ApiRoot } from '/src/auth'
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 // @ts-ignore
-export async function post({ request }) {
+export async function post({ request, locals }) {
     const body = await request.json()
-    const { username } = body;
+    const username = locals.user.username ?? false;
 
     if (username) {
        

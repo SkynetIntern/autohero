@@ -42,7 +42,31 @@ export default class SocketConnection {
                     this.usernameSocketMap.delete(socket.user.username);
                 }
             })
+
+            socket.on('changeSelectedCharacter', (data) => {
+                if (data) {
+                    this.selectCharacter(socket, data)
+                }
+            })
+
+            socket.on('getCharacter', () => {
+                let character = this.getCharacter(socket)
+                socket.emit('getCharacter', character)                
+            })
         });
+    }
+
+    selectCharacter(socket, data) {
+        const { selectedId, characters } = data
+        try {
+            socket.selectedCharacter = characters[selectedId];
+        } catch (e) {
+            socket.selectedCharacter = null;
+        }
+    }
+
+    getCharacter(socket) {
+        return socket.selectedCharacter;
     }
 
     returnListOfOnlineUsers(usernameList) {
