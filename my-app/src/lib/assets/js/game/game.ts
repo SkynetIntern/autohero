@@ -1,5 +1,6 @@
 //@ts-ignore
 import { bind, init } from 'svelte/internal';
+//@ts-ignore
 import * as THREE from 'three';
 //@ts-ignore
 import Stats from 'three/examples/jsm/libs/stats.module';
@@ -14,6 +15,7 @@ export default class Game {
     aspect: number = window.innerWidth / window.innerHeight;
     camera: THREE.camera = null;
     renderer: THREE.renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true });
+    characterMesh: THREE.mesh = null
 
     constructor() {
         this.stats = new Stats();
@@ -33,6 +35,17 @@ export default class Game {
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
     }
 
+    changeCharacter(character: {
+        color: string;
+        name: string;
+        level: number;
+        expCurrent: number;
+        expToNextLevel: number;
+    }) {
+        const color = character.color.replace('#', '0x')
+        this.characterMesh.material.color.setHex(color)
+    }
+
     init() {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         const renderParent = document.getElementById('three-canvas');
@@ -40,13 +53,17 @@ export default class Game {
         renderParent.appendChild(this.renderer.domElement);
         renderParent.appendChild(this.stats.dom);
 
+        const geometry = new THREE.PlaneGeometry(1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.DoubleSide });
+        this.characterMesh = new THREE.Mesh(geometry, material);
+        this.scene.add(this.characterMesh);
 
         this.render()
     }
 
     render() {
         requestAnimationFrame(this.render.bind(this));
-        
+
         this.delta = this.clock.getDelta();
         this.stats.update();
 

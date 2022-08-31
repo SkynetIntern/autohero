@@ -2,13 +2,18 @@
 	//@ts-ignore
 	import { io } from '$lib/assets/js/socket/socketinit.js';
 	import { onMount } from 'svelte';
-import Game from '../assets/js/game/game';
+	import Game from '../assets/js/game/game';
 
 	export let user: { email: string; username: string; authenticated: boolean };
-	let characters: { name: string; level: number; expCurrent: number; expToNextLevel: number }[] =
-		[];
-	let characterSelected: number = 0;
-
+	let characters: {
+		color: string;
+		name: string;
+		level: number;
+		expCurrent: number;
+		expToNextLevel: number;
+	}[] = [];
+	let characterSelected: number = -1;
+	let game: Game;
 	async function getCharacters() {
 		try {
 			const res = await fetch('/auth/getCharacters', {
@@ -33,10 +38,10 @@ import Game from '../assets/js/game/game';
 	}
 
 	function onCharacterSelect(selectedId: number, event: EventListener) {
-		selectCharacter(selectedId,event.target)
+		selectCharacter(selectedId, event.target);
 	}
 
-	function selectCharacter(selectedId: number, element: Element){
+	function selectCharacter(selectedId: number, element: Element) {
 		if (selectedId == characterSelected) return;
 		characterSelected = selectedId;
 		document.querySelectorAll('.character').forEach((elm) => {
@@ -44,6 +49,7 @@ import Game from '../assets/js/game/game';
 		});
 		element.classList.add('active');
 		io.emit('changeSelectedCharacter', { selectedId, characters });
+		getCharacter();
 	}
 
 	function getCharacter() {
@@ -51,7 +57,7 @@ import Game from '../assets/js/game/game';
 		io.on(
 			'getCharacter',
 			(character: { name: string; level: number; expCurrent: number; expToNextLevel: number }) => {
-				console.log(character);
+				game.changeCharacter(character);
 			}
 		);
 	}
@@ -59,13 +65,17 @@ import Game from '../assets/js/game/game';
 	onMount(async () => {
 		function initThreeScene() {
 			document.body.style.overflow = 'hidden';
-			let game = new Game();
+			game = new Game();
 		}
 
 		if (user.authenticated) {
 			const data = await getCharacters();
 			if (data) {
 				characters = data.characters;
+				setTimeout(() => {
+					const elm = document.querySelector('.character');
+					selectCharacter(0, elm);
+				}, 100);
 			}
 
 			initThreeScene();
